@@ -24,6 +24,40 @@ public class model {
 
 }
 
+//swagger ui
+
+//main
+private ApiInfo apiDetails(){
+		return new ApiInfo(
+				"NAME",
+				"DESCRIPTION",
+				"0.1",
+				"All Rights Reserved",
+				new springfox.documentation.service.Contact(
+						"INTERVIEW",
+						"revature.com",
+						"matthew.thomas@revature.net"),
+				"API Licence",
+				"",
+				Collections.emptyList()
+		);
+	}
+
+	@Bean
+	public Docket swaggerConfiguration(){
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.paths(PathSelectors.regex("^/(?!error)\\S+"))
+				.build()
+				.apiInfo(apiDetails());
+	}
+
+<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+</dependency>
+
 
 // Eureka Server
 // use 1.8
