@@ -1,6 +1,9 @@
 package com.revature.userratingsservice.controller;
 
 
+
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import com.revature.userratingsservice.model.UserRatings;
 import com.revature.userratingsservice.repo.UserRatingsRepo;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -12,6 +15,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 public class UserRatingsController {
+
+    @Autowired
+    DiscoveryClient discoveryClient;
 
     @Autowired
     UserRatingsRepo userRatingsRepo;

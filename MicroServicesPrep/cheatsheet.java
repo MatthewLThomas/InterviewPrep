@@ -1,6 +1,8 @@
 //start.spring.io
 //spring web
 //lombok
+//H2
+//Spring Data JPA & Rest
 //Eureka client / server
 
 //configure server port
@@ -15,10 +17,23 @@
 @ToString
 @Builder
 public class model {
+	@Id
+	@GenerationValue(strategy = GenerationType.IDENTITY)
+	int id;
 
 }
 
 //swagger ui
+
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+
+
 
 //main
 private ApiInfo apiDetails(){
@@ -55,6 +70,8 @@ private ApiInfo apiDetails(){
 
 // Eureka Server
 // use 1.8
+
+@EnableEurekaServer
 // app.props
 server.port = 8761
 eureka.client.register-with-eureka=false   
@@ -62,8 +79,36 @@ eureka.client.fetch-registry=false
 
 //Eureka Client
 spring.application.name = "NAME"
-server.port = 8081
+server.port = 808X
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.datasource.url=jdbc:h2:file:/data/demo
 
+
+//Consuming SpringData Rest
+
+@Bean
+public RestTemplate restTemplate() {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new Jackson2HalModule());
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        MappingJackson2HttpMessageConverter messageConverter =
+                    new MappingJackson2HttpMessageConverter();
+        messageConverter.setObjectMapper(objectMapper);
+        messageConverter.setSupportedMediaTypes(Arrays.asList(MediaTypes.HAL_JSON, MediaType.APPLICATION_JSON_UTF8));
+        return new RestTemplate(Arrays.asList(messageConverter));
+
+}
+
+ResponseEntity<PagedResources<Object>> resultResponse = restTemplate.exchange(uri, HttpMethod.GET, HttpEntity.EMPTY, new ParameterizedTypeReference<PagedResources<Producto>>(){});
+
+if(resultResponse.getStatusCode() == HttpStatus.OK){
+    Collection<Object> results = resultResponse.getBody().getContent();
+}
 
 @EnableEurekaClient
 public class app{
@@ -100,7 +145,7 @@ axios.post(`url`,object)
 axios.get(`url`)
 	.then(res =>{
 		const object = res.data;
-		thisState({... objectList, object}
+		setState({... objectList, object}
 	}, [Dependency])
 
 
@@ -137,3 +182,30 @@ npm i reactRouterDom
 import {Link} from 'react-router-dom'
 <Link to ="/path">TEXT</Link>
 
+//Testing
+npm install --save-dev jest babel-jest
+npm install --save-dev enzyme enzyme-adapter-react-16 enzyme-to-json
+
+
+
+
+
+
+import React from 'react'
+import {shallow} from 'enzyme'
+import App from "./../App"
+import { beforeEach } from '@jest/globals';
+
+describe('<Comp.>' , () => {
+    let wrapper;
+    
+    beforeEach(()=>
+        wrapper = shallow(<App/>)
+    )
+
+	it("Description", ()=> {
+		const className = wrapper.find(".four");
+		expect(className.text()).toEqual("Edit src/App.js and save to reload.")
+	})
+
+});

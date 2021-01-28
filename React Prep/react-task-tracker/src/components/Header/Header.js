@@ -1,10 +1,15 @@
 import React from 'react'
+import Tippy from '@tippyjs/react'
+
 
 const Header = () => {
+
     return (
         <div>
             <header className = "border">
-                <h1 className = "text-center">Task Tracker</h1>
+                <Tippy content="Goodbye">
+                     <button>My button</button>
+                </Tippy>
             </header>
         </div>
     )

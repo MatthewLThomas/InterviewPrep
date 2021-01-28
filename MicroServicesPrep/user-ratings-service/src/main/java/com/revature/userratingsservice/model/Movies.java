@@ -1,10 +1,7 @@
 package com.revature.userratingsservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.apache.catalina.User;
 
 import javax.persistence.*;
@@ -16,6 +13,7 @@ import java.util.List;
 @Data
 @Entity
 @ToString
+@Builder
 public class Movies implements Serializable {
 
     @Id

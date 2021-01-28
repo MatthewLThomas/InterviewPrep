@@ -1,5 +1,6 @@
 package com.revature.userratingsservice;
 
+import com.netflix.discovery.DiscoveryClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -40,4 +41,5 @@ public class UserRatingsServiceApplication {
 				.build()
 				.apiInfo(apiDetails());
 	}
+
 }

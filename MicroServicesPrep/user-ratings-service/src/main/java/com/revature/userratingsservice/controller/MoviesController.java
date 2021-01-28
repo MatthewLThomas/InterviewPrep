@@ -1,5 +1,8 @@
 package com.revature.userratingsservice.controller;
 
+
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import com.revature.userratingsservice.model.Movies;
 import com.revature.userratingsservice.repo.MoviesRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/movies")
 public class MoviesController {
+    @Autowired
+    DiscoveryClient discoveryClient;
 
     @Autowired
     MoviesRepo moviesRepo;
