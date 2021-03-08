@@ -8,7 +8,7 @@ const Header = () => {
         <div>
             <header className = "border">
                 <Tippy content="Goodbye">
-                     <button>My button</button>
+                     <button>My button is awesome</button>
                 </Tippy>
             </header>
         </div>

@@ -1,6 +1,10 @@
 import{ React, useState} from 'react'
 import axios from 'axios'
 import Tippy from '@tippyjs/react'
+import {NewTodo} from '../NewTodo/newTodo'
+import {Todo} from '../Todo/todo'
+import { useSelector }from "react-redux"
+import {TodoList} from "../TodoList/todoList"
 import "./Body.css"
 
 
@@ -13,6 +17,7 @@ const Body = () => {
     const updateState = (event) => {
         setInputState(event.target.value);
         console.log(inputState)
+        
     }
   
     const handleSubmit = (event) => {
@@ -23,7 +28,7 @@ const Body = () => {
         if(val > 0 && val < 11){
             seterrorMessage("");
             axios.post("http://localhost:8080/api/example/form",transmit).then(res =>{console.log(res)}) 
-            console.log ("test")
+            
         }
         if(!val){
             seterrorMessage("must enter a number between 0 and 10")
@@ -43,6 +48,8 @@ const Body = () => {
         error = displayError();
     }
 
+    
+
     return (
         <div className = "border container">
             <div className = "row d-flex align-items-center"><img className = "smallLogo col-3"  src = {process.env.PUBLIC_URL + "/2913.png"}/><h1 className = "text-center align-middle col-3">Steve</h1> <img className = "smallLogo col-3"  src = {process.env.PUBLIC_URL + "/2913.png"}/></div>
@@ -53,6 +60,8 @@ const Body = () => {
                 <input type = "submit"></input>
             </form>
             {error}
+            <NewTodo/>
+            <TodoList/>
         </div>
     )
 }
